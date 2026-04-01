@@ -51,6 +51,7 @@ const COMPARISONS = {
   heloc: {
     label: "HELOC",
     color: "#19A274",
+    summaryLabel: "HOW A HELOC WORKS",
     summary: "A HELOC gives you a revolving credit line against your home. You draw what you need and pay interest on what you borrow — every month, from day one.",
     rows: [
       {
@@ -103,6 +104,7 @@ const COMPARISONS = {
   refi: {
     label: "Cash-out Refi",
     color: "#6D4BD4",
+    summaryLabel: "HOW A CASH-OUT REFI WORKS",
     summary: "A cash-out refinance replaces your entire mortgage with a new, larger one. You receive the difference as cash — but take on a new rate and 30 years of payments.",
     rows: [
       {
@@ -155,6 +157,7 @@ const COMPARISONS = {
   reverse: {
     label: "Reverse Mortgage",
     color: "#249995",
+    summaryLabel: "HOW A REVERSE MORTGAGE WORKS",
     summary: "A reverse mortgage converts home equity into cash for homeowners 62+. No monthly payments, but the loan balance grows over time and is repaid when you sell or pass away.",
     rows: [
       {
@@ -212,6 +215,7 @@ const COMPARISONS = {
   personal: {
     label: "Personal Loan",
     color: "#2A87A8",
+    summaryLabel: "PERSONAL LOAN FOR LARGE EXPENSES",
     summary: "A personal loan gives you a fixed lump sum with a fixed interest rate and fixed monthly payments — typically over 2 to 7 years. It's unsecured, meaning your home isn't used as collateral.",
     rows: [
       {
@@ -264,6 +268,7 @@ const COMPARISONS = {
   credit: {
     label: "Credit Card",
     color: "#0C2E7D",
+    summaryLabel: "CREDIT CARDS FOR LARGE EXPENSES",
     summary: "Credit cards offer a revolving line of credit for everyday purchases and cash advances. Convenient for small amounts, but high interest rates make them expensive for large or long-term borrowing.",
     rows: [
       {
@@ -471,7 +476,7 @@ export default function ComparisonTool() {
             opacity: loaded ? 1 : 0, transform: loaded ? "translateY(0)" : "translateY(10px)",
             transition: "all 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.08s",
           }}>
-            You have options for accessing your equity. See how a Home Equity Investment compares — side by side, feature by feature.
+            See how a Home Equity Investment stacks up against the most common alternatives — side by side, feature by feature.
           </p>
         </div>
       </div>
@@ -526,7 +531,7 @@ export default function ComparisonTool() {
             <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
               <div style={{ width: 8, height: 8, borderRadius: 2, background: comp.color }} />
               <span style={{ fontSize: 12, fontWeight: 700, color: comp.color, letterSpacing: "0.03em" }}>
-                WHAT IS A {comp.label.toUpperCase()}?
+                {comp.summaryLabel}
               </span>
             </div>
             <div style={{ fontSize: 13, color: BRAND.gray600, lineHeight: 1.55 }}>

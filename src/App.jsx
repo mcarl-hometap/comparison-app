@@ -477,6 +477,23 @@ export default function ComparisonTool() {
     return () => clearTimeout(t);
   }, []);
 
+  // Maze heatmap tracking
+  useEffect(() => {
+    try {
+      let t = sessionStorage.getItem("maze-us");
+      if (!t) {
+        t = new Date().getTime();
+        sessionStorage.setItem("maze-us", t);
+      }
+    } catch (err) {}
+    const s = document.createElement("script");
+    s.src = "https://snippet.maze.co/maze-universal-loader.js?apiKey=1b71ac3f-702c-4429-9277-e74c84d61aa7";
+    s.async = true;
+    document.head.appendChild(s);
+    window.mazeUniversalSnippetApiKey = "1b71ac3f-702c-4429-9277-e74c84d61aa7";
+    return () => { try { document.head.removeChild(s); } catch (e) {} };
+  }, []);
+
   const switchTo = (product) => {
     if (product === comparing) return;
     setVisible(false);

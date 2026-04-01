@@ -24,6 +24,8 @@ const BRAND = {
   blue:      "#4A7CCC",
   orange:    "#D4764E",
   purple:    "#7C5CBA",
+  teal:      "#2B93A5",
+  rose:      "#C74B7A",
   font:      "'DM Sans', sans-serif",
   radius:    { sm: 8, md: 12, lg: 16, xl: 20 },
 };
@@ -77,14 +79,14 @@ const COMPARISONS = {
         other: { text: "Variable rate that can rise with the market, increasing your payment", verdict: "lose" },
       },
       {
-        feature: "If home values drop",
-        hei: { text: "Your settlement amount is based on your home's value at the time — if it drops, you may owe less", verdict: "win" },
-        other: { text: "You owe the full balance regardless of what your home is worth", verdict: "lose" },
-      },
-      {
         feature: "Qualification approach",
         hei: { text: "Primarily based on your home's equity — no income or debt-to-income requirements", verdict: "win" },
         other: { text: "Credit score, income verification, and debt-to-income requirements", verdict: "neutral" },
+      },
+      {
+        feature: "Impact on credit and DTI",
+        hei: { text: "No impact on your credit score or debt-to-income ratio during the investment term", verdict: "win" },
+        other: { text: "Counts as outstanding debt — increases your DTI and appears on your credit report", verdict: "lose" },
       },
       {
         feature: "Access to funds",
@@ -139,9 +141,9 @@ const COMPARISONS = {
         other: { text: "Full mortgage underwriting — credit, income, and DTI", verdict: "neutral" },
       },
       {
-        feature: "If home values drop",
-        hei: { text: "Your settlement amount is based on your home's value at the time — if it drops, you may owe less", verdict: "win" },
-        other: { text: "You owe the full mortgage balance regardless", verdict: "lose" },
+        feature: "Impact on credit and DTI",
+        hei: { text: "No impact on your credit score or debt-to-income ratio during the investment term", verdict: "win" },
+        other: { text: "New, larger mortgage increases your DTI and resets your credit history for the account", verdict: "lose" },
       },
     ],
     bottomLine: {
@@ -176,6 +178,11 @@ const COMPARISONS = {
         other: { text: "Loan balance grows every year as interest compounds — can consume most of your equity", verdict: "lose" },
       },
       {
+        feature: "Impact on credit and DTI",
+        hei: { text: "No impact on your credit score or debt-to-income ratio during the investment term", verdict: "win" },
+        other: { text: "Recorded as a lien on your property — may affect future borrowing", verdict: "neutral" },
+      },
+      {
         feature: "Complexity",
         hei: { text: "Straightforward application, typically closes in weeks", verdict: "win" },
         other: { text: "Requires HUD counseling, extensive paperwork, and longer closing", verdict: "lose" },
@@ -199,6 +206,110 @@ const COMPARISONS = {
     bottomLine: {
       hook: "Exploring options for retirement?",
       text: "Reverse mortgages work for some homeowners 62+, but the growing loan balance can quietly consume most of your equity over time. An HEI gives you cash now without a balance that compounds — and it's available at any age.",
+    },
+  },
+  personal: {
+    label: "Personal Loan",
+    color: BRAND.teal,
+    summary: "A personal loan gives you a fixed lump sum with a fixed interest rate and fixed monthly payments — typically over 2 to 7 years. It's unsecured, meaning your home isn't used as collateral.",
+    rows: [
+      {
+        feature: "Monthly payments",
+        hei: { text: "No monthly payments for up to 10 years — you settle on your timeline", verdict: "win" },
+        other: { text: "Fixed monthly payments begin immediately and continue for the full loan term", verdict: "lose" },
+      },
+      {
+        feature: "Your mortgage rate",
+        hei: { text: "Stays exactly as-is — your existing mortgage doesn't change", verdict: "neutral" },
+        other: { text: "Not affected — personal loans are separate from your mortgage", verdict: "neutral" },
+      },
+      {
+        feature: "Impact on monthly budget",
+        hei: { text: "Zero — your cash flow stays the same", verdict: "win" },
+        other: { text: "Adds a new fixed monthly bill for the duration of the loan", verdict: "lose" },
+      },
+      {
+        feature: "Cost of borrowing",
+        hei: { text: "Cost is tied to a share of your home's future value — not a monthly interest rate", verdict: "neutral" },
+        other: { text: "Fixed interest rate, typically 8–15% depending on credit — every payment includes interest", verdict: "lose" },
+      },
+      {
+        feature: "Amount available",
+        hei: { text: "Up to $600,000 based on your home's equity", verdict: "win" },
+        other: { text: "Typically capped at $50,000–$100,000 — limited by credit profile, not equity", verdict: "lose" },
+        highlighted: true,
+      },
+      {
+        feature: "Qualification approach",
+        hei: { text: "Primarily based on your home's equity — no income or debt-to-income requirements", verdict: "win" },
+        other: { text: "Based on credit score, income, and existing debt load", verdict: "neutral" },
+      },
+      {
+        feature: "Impact on credit and DTI",
+        hei: { text: "No impact on your credit score or debt-to-income ratio during the investment term", verdict: "win" },
+        other: { text: "Shows as installment debt — increases your DTI and appears on your credit report", verdict: "lose" },
+      },
+      {
+        feature: "Collateral",
+        hei: { text: "Hometap records a lien on your home to secure the investment", verdict: "neutral" },
+        other: { text: "Unsecured — your home is not used as collateral", verdict: "win" },
+      },
+    ],
+    bottomLine: {
+      hook: "Need more than a personal loan can offer?",
+      text: "Personal loans are fast and simple, but they're limited by your credit profile — not your home's value. If you need $50K or more and want to avoid monthly payments, an HEI unlocks what your equity has built without adding a bill to your budget.",
+    },
+  },
+  credit: {
+    label: "Credit Card",
+    color: BRAND.rose,
+    summary: "Credit cards offer a revolving line of credit for everyday purchases and cash advances. Convenient for small amounts, but high interest rates make them expensive for large or long-term borrowing.",
+    rows: [
+      {
+        feature: "Monthly payments",
+        hei: { text: "No monthly payments for up to 10 years — you settle on your timeline", verdict: "win" },
+        other: { text: "Minimum payments required every month — but paying only the minimum can take decades to pay off", verdict: "lose" },
+      },
+      {
+        feature: "Your mortgage rate",
+        hei: { text: "Stays exactly as-is — your existing mortgage doesn't change", verdict: "neutral" },
+        other: { text: "Not affected — credit cards are separate from your mortgage", verdict: "neutral" },
+      },
+      {
+        feature: "Cost of borrowing",
+        hei: { text: "Cost is tied to a share of your home's future value — not a monthly interest rate", verdict: "win" },
+        other: { text: "APR typically 20–28% — interest compounds monthly on any unpaid balance", verdict: "lose" },
+        highlighted: true,
+      },
+      {
+        feature: "Amount available",
+        hei: { text: "Up to $600,000 based on your home's equity", verdict: "win" },
+        other: { text: "Typically $5,000–$30,000 — limited by credit profile", verdict: "lose" },
+      },
+      {
+        feature: "Total cost over time",
+        hei: { text: "Based on your home's value at settlement — defined and predictable", verdict: "win" },
+        other: { text: "Carrying a $25K balance at 24% APR costs over $6,000/year in interest alone", verdict: "lose" },
+      },
+      {
+        feature: "Qualification approach",
+        hei: { text: "Primarily based on your home's equity — no income or debt-to-income requirements", verdict: "win" },
+        other: { text: "Based on credit score and existing credit history", verdict: "neutral" },
+      },
+      {
+        feature: "Impact on credit and DTI",
+        hei: { text: "No impact on your credit score or debt-to-income ratio during the investment term", verdict: "win" },
+        other: { text: "High utilization damages your credit score — large balances significantly increase DTI", verdict: "lose" },
+      },
+      {
+        feature: "Repayment structure",
+        hei: { text: "Settle once — when you sell, refinance, or buy out within 10 years", verdict: "win" },
+        other: { text: "Open-ended — no set payoff date, easy to carry a balance indefinitely", verdict: "lose" },
+      },
+    ],
+    bottomLine: {
+      hook: "Carrying credit card debt — or thinking about it?",
+      text: "Credit cards are convenient for small purchases, but at 20%+ APR they're one of the most expensive ways to access cash. Many homeowners use an HEI to pay off high-interest debt entirely — eliminating monthly payments and freeing up cash flow.",
     },
   },
 };
@@ -326,9 +437,11 @@ export default function ComparisonTool() {
   const comp = COMPARISONS[comparing];
 
   const toggleOptions = [
-    { key: "heloc", label: "vs. HELOC", color: BRAND.blue },
-    { key: "refi", label: "vs. Cash-out Refi", color: BRAND.orange },
-    { key: "reverse", label: "vs. Reverse Mortgage", color: BRAND.purple },
+    { key: "heloc", label: "HELOC", color: BRAND.blue },
+    { key: "refi", label: "Cash-out Refi", color: BRAND.orange },
+    { key: "reverse", label: "Reverse Mortgage", color: BRAND.purple },
+    { key: "personal", label: "Personal Loan", color: BRAND.teal },
+    { key: "credit", label: "Credit Card", color: BRAND.rose },
   ];
 
   return (
@@ -379,23 +492,22 @@ export default function ComparisonTool() {
 
       <div style={{ maxWidth: 680, margin: "0 auto", padding: "28px 16px 48px" }}>
 
-        {/* Toggle — 3 options */}
+        {/* Toggle — 5 options, wrapped pill layout */}
         <div style={{
-          display: "flex", background: BRAND.gray100, borderRadius: BRAND.radius.lg, padding: 4,
-          border: `1px solid ${BRAND.border}`, marginBottom: 8,
+          display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 8,
         }}>
           {toggleOptions.map((opt) => {
             const active = comparing === opt.key;
             return (
               <button key={opt.key} onClick={() => switchTo(opt.key)} style={{
-                flex: 1, padding: "11px 6px", borderRadius: BRAND.radius.md, border: "none",
-                background: active ? BRAND.white : "transparent",
-                color: active ? BRAND.dark : BRAND.gray500,
-                fontSize: 13, fontWeight: 700, fontFamily: BRAND.font,
+                padding: "9px 16px", borderRadius: 20, border: "none",
+                background: active ? BRAND.dark : BRAND.gray100,
+                color: active ? BRAND.white : BRAND.gray500,
+                fontSize: 13, fontWeight: 600, fontFamily: BRAND.font,
                 cursor: "pointer", transition: "all 0.25s ease",
-                boxShadow: active ? "0 1px 4px rgba(0,0,0,0.08)" : "none",
+                whiteSpace: "nowrap",
               }}>
-                {opt.label}
+                {active ? `vs. ${opt.label}` : opt.label}
               </button>
             );
           })}

@@ -711,10 +711,10 @@ export default function ComparisonTool() {
         </div>
 
         {/* CTA */}
-        <div style={{ textAlign: "center" }}>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <button style={{
-            background: BRAND.blue100, color: BRAND.white, border: "none",
-            borderRadius: BRAND.radius.md, padding: "16px 44px", fontSize: 16,
+            width: 300, background: BRAND.blue100, color: BRAND.white, border: "none",
+            borderRadius: BRAND.radius.md, padding: "16px 0", fontSize: 16,
             fontWeight: 700, fontFamily: BRAND.font, cursor: "pointer",
             boxShadow: `0 4px 16px ${BRAND.blue700}20`, transition: "all 0.2s",
           }}
@@ -726,6 +726,23 @@ export default function ComparisonTool() {
           <div style={{ fontSize: 12, color: BRAND.gray500, marginTop: 10 }}>
             Takes about 2 minutes · No commitment · No credit impact
           </div>
+          <a href="tel:8552233144" style={{
+            width: 300, boxSizing: "border-box",
+            display: "flex", alignItems: "center", justifyContent: "center", gap: 6,
+            marginTop: 16, padding: "14px 0", borderRadius: BRAND.radius.md,
+            border: `1.5px solid ${BRAND.border}`, background: BRAND.white,
+            color: BRAND.blue700, fontSize: 13, fontWeight: 600,
+            fontFamily: BRAND.font, textDecoration: "none", cursor: "pointer",
+            transition: "all 0.2s",
+          }}
+            onMouseEnter={e => { e.currentTarget.style.borderColor = BRAND.blue700; e.currentTarget.style.background = `${BRAND.blue700}06`; }}
+            onMouseLeave={e => { e.currentTarget.style.borderColor = BRAND.border; e.currentTarget.style.background = BRAND.white; }}
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={BRAND.blue700} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" />
+            </svg>
+            Talk to an Investment Manager
+          </a>
         </div>
 
         {/* Disclaimer — required per compliance guidelines */}

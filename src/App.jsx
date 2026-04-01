@@ -1,15 +1,16 @@
 import { useState, useEffect } from "react";
 
-/* ─── Hometap Design System Tokens ───
-   Sourced from hometap.com production site + brand guidelines.
-   DM Sans is the primary typeface. Color palette anchored on
-   the signature green (#00A67E) and dark teal (#0B2B26).
+/* ─── Design System Tokens ───
+   DM Sans is the primary typeface. Color palette uses
+   blue/700 as primary dark and blue/100 as CTA.
 */
 const BRAND = {
   green:     "#00A67E",
   greenLight:"#E6F5F0",
   greenDark: "#008A6A",
-  dark:      "#0B2B26",
+  dark:      "#0C2E7D",
+  blue100:   "#366CED",
+  blue700:   "#0C2E7D",
   cream:     "#F7F5F0",
   white:     "#FFFFFF",
   gray100:   "#F9FAFB",
@@ -32,10 +33,10 @@ const BRAND = {
 
 /* ─── Comparison Data ───
    Content informed by:
-   - Hometap HEI Positioning (Spring 2025)
+   - HEI Positioning (Spring 2025)
    - Compliance Guidelines for Marketing Collateral
    - Monthly Cross-Functional Insights from Paid Social (Guru)
-   - hometap.com/home-equity-investment-vs-traditional-loans
+   - Product comparison page
 
    Key Guru insight applied: Mortgage rate protection is a
    "persistent anxiety trigger that unlocks intent." Homeowners
@@ -251,7 +252,7 @@ const COMPARISONS = {
       },
       {
         feature: "Collateral",
-        hei: { text: "Hometap records a lien on your home to secure the investment", verdict: "neutral" },
+        hei: { text: "A lien is recorded on your home to secure the investment", verdict: "neutral" },
         other: { text: "Unsecured — your home is not used as collateral", verdict: "win" },
       },
     ],
@@ -354,7 +355,7 @@ function VerdictIcon({ verdict, size = 18 }) {
   );
 }
 
-function CompRow({ feature, hei, other, otherColor, index, visible, highlighted }) {
+function CompRow({ feature, hei, other, otherColor, index, visible }) {
   const delay = 0.04 * index;
   return (
     <div style={{
@@ -367,20 +368,8 @@ function CompRow({ feature, hei, other, otherColor, index, visible, highlighted 
         fontSize: 13, fontWeight: 700, color: BRAND.dark, padding: "16px 0 10px",
         borderTop: index > 0 ? `1px solid ${BRAND.border}` : "none",
         fontFamily: BRAND.font,
-        display: "flex", alignItems: "center", gap: 8,
       }}>
-        {highlighted && (
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={BRAND.green} strokeWidth="2.5" strokeLinecap="round">
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-          </svg>
-        )}
         {feature}
-        {highlighted && (
-          <span style={{
-            fontSize: 9, fontWeight: 700, color: BRAND.green, background: `${BRAND.green}12`,
-            padding: "2px 7px", borderRadius: 6, letterSpacing: "0.04em", textTransform: "uppercase",
-          }}>Key difference</span>
-        )}
       </div>
 
       {/* Two-column comparison */}
@@ -448,19 +437,18 @@ export default function ComparisonTool() {
     <div style={{ fontFamily: BRAND.font, background: BRAND.white, minHeight: "100vh" }}>
       <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
-      {/* Header — aligned with hometap.com visual language */}
+      {/* Header */}
       <div style={{
         background: BRAND.white, padding: "40px 24px 32px",
         borderBottom: `1px solid ${BRAND.border}`,
       }}>
         <div style={{ maxWidth: 680, margin: "0 auto" }}>
-          {/* Hometap wordmark placeholder */}
           <div style={{
             display: "inline-flex", alignItems: "center", gap: 8, marginBottom: 24,
           }}>
             <div style={{
               width: 32, height: 32, borderRadius: 10,
-              background: `linear-gradient(135deg, ${BRAND.green}, #4DBFA0)`,
+              background: BRAND.blue700,
               display: "flex", alignItems: "center", justifyContent: "center",
             }}>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={BRAND.white} strokeWidth="2.5" strokeLinecap="round">
@@ -474,7 +462,7 @@ export default function ComparisonTool() {
           </div>
 
           <h1 style={{
-            fontSize: 32, fontWeight: 800, color: BRAND.dark, lineHeight: 1.15, margin: "0 0 10px",
+            fontSize: 32, fontWeight: 800, color: BRAND.blue700, lineHeight: 1.15, margin: "0 0 10px",
             opacity: loaded ? 1 : 0, transform: loaded ? "translateY(0)" : "translateY(10px)",
             transition: "all 0.5s cubic-bezier(0.22, 1, 0.36, 1)",
           }}>
@@ -485,7 +473,7 @@ export default function ComparisonTool() {
             opacity: loaded ? 1 : 0, transform: loaded ? "translateY(0)" : "translateY(10px)",
             transition: "all 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.08s",
           }}>
-            You have options for accessing your equity. See how a Hometap Home Equity Investment compares — side by side, feature by feature.
+            You have options for accessing your equity. See how a Home Equity Investment compares — side by side, feature by feature.
           </p>
         </div>
       </div>
@@ -501,7 +489,7 @@ export default function ComparisonTool() {
             return (
               <button key={opt.key} onClick={() => switchTo(opt.key)} style={{
                 padding: "9px 16px", borderRadius: 20, border: "none",
-                background: active ? BRAND.dark : BRAND.gray100,
+                background: active ? BRAND.blue700 : BRAND.gray100,
                 color: active ? BRAND.white : BRAND.gray500,
                 fontSize: 13, fontWeight: 600, fontFamily: BRAND.font,
                 cursor: "pointer", transition: "all 0.25s ease",
@@ -538,7 +526,7 @@ export default function ComparisonTool() {
         }}>
           <div style={{ flex: 1, display: "flex", alignItems: "center", gap: 8, padding: "0 12px" }}>
             <div style={{ width: 12, height: 12, borderRadius: 3, background: BRAND.green }} />
-            <span style={{ fontSize: 14, fontWeight: 800, color: BRAND.dark }}>Hometap HEI</span>
+            <span style={{ fontSize: 14, fontWeight: 800, color: BRAND.dark }}>Home Equity Investment</span>
           </div>
           <div style={{ flex: 1, display: "flex", alignItems: "center", gap: 8, padding: "0 12px" }}>
             <div style={{ width: 12, height: 12, borderRadius: 3, background: comp.color }} />
@@ -557,21 +545,20 @@ export default function ComparisonTool() {
               otherColor={comp.color}
               index={i}
               visible={visible}
-              highlighted={row.highlighted}
             />
           ))}
         </div>
 
         {/* Bottom line — contextual insight per product */}
         <div style={{
-          background: BRAND.dark, borderRadius: BRAND.radius.xl, padding: "28px 28px",
+          background: BRAND.blue700, borderRadius: BRAND.radius.xl, padding: "28px 28px",
           marginTop: 24, marginBottom: 28, position: "relative", overflow: "hidden",
         }}>
-          <div style={{ position: "absolute", top: -40, right: -40, width: 140, height: 140, borderRadius: "50%", background: `${BRAND.green}10` }} />
-          <div style={{ position: "absolute", bottom: -20, left: "20%", width: 80, height: 80, borderRadius: "50%", background: `${BRAND.green}06` }} />
+          <div style={{ position: "absolute", top: -40, right: -40, width: 140, height: 140, borderRadius: "50%", background: "rgba(255,255,255,0.06)" }} />
+          <div style={{ position: "absolute", bottom: -20, left: "20%", width: 80, height: 80, borderRadius: "50%", background: "rgba(255,255,255,0.04)" }} />
           <div style={{ position: "relative", zIndex: 1 }}>
             <div style={{
-              fontSize: 11, fontWeight: 700, color: `${BRAND.green}bb`,
+              fontSize: 11, fontWeight: 700, color: BRAND.blue100,
               letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: 10,
             }}>
               {comp.bottomLine.hook}
@@ -582,16 +569,16 @@ export default function ComparisonTool() {
           </div>
         </div>
 
-        {/* CTA — matches hometap.com button style */}
+        {/* CTA */}
         <div style={{ textAlign: "center" }}>
           <button style={{
-            background: BRAND.green, color: BRAND.white, border: "none",
+            background: BRAND.blue100, color: BRAND.white, border: "none",
             borderRadius: BRAND.radius.md, padding: "16px 44px", fontSize: 16,
             fontWeight: 700, fontFamily: BRAND.font, cursor: "pointer",
-            boxShadow: `0 4px 16px ${BRAND.green}40`, transition: "all 0.2s",
+            boxShadow: `0 4px 16px ${BRAND.blue700}20`, transition: "all 0.2s",
           }}
-            onMouseEnter={e => { e.target.style.transform = "translateY(-2px)"; e.target.style.boxShadow = `0 6px 20px ${BRAND.green}50`; }}
-            onMouseLeave={e => { e.target.style.transform = "translateY(0)"; e.target.style.boxShadow = `0 4px 16px ${BRAND.green}40`; }}
+            onMouseEnter={e => { e.target.style.transform = "translateY(-2px)"; e.target.style.boxShadow = `0 6px 20px ${BRAND.blue700}30`; }}
+            onMouseLeave={e => { e.target.style.transform = "translateY(0)"; e.target.style.boxShadow = `0 4px 16px ${BRAND.blue700}20`; }}
           >
             Get an Estimate
           </button>
@@ -605,7 +592,7 @@ export default function ComparisonTool() {
           marginTop: 32, padding: "16px 0", borderTop: `1px solid ${BRAND.border}`,
           fontSize: 11, color: BRAND.gray500, lineHeight: 1.65, textAlign: "center",
         }}>
-          This comparison is for general educational purposes. A Hometap HEI has a 10-year term. No monthly payments are required during the term, but the homeowner must settle the investment at or before the end of the term — by selling, refinancing, or using other funds. The amount owed at settlement is based on the home's value at that time. Product availability, terms, rates, and features vary by lender and individual circumstances. Consult a financial advisor for personalized guidance.
+          This comparison is for general educational purposes. A Home Equity Investment has a 10-year term. No monthly payments are required during the term, but the homeowner must settle the investment at or before the end of the term — by selling, refinancing, or using other funds. The amount owed at settlement is based on the home's value at that time. Product availability, terms, rates, and features vary by lender and individual circumstances. Consult a financial advisor for personalized guidance.
         </div>
       </div>
     </div>

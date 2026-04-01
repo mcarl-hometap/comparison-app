@@ -478,42 +478,60 @@ export default function ComparisonTool() {
 
       <div style={{ maxWidth: 680, margin: "0 auto", padding: "28px 16px 48px" }}>
 
-        {/* Toggle — 5 options, wrapped pill layout */}
-        <div style={{
-          display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 8,
-        }}>
-          {toggleOptions.map((opt) => {
-            const active = comparing === opt.key;
-            return (
-              <button key={opt.key} onClick={() => switchTo(opt.key)} style={{
-                padding: "9px 16px", borderRadius: 20, border: "none",
-                background: active ? BRAND.blue700 : BRAND.gray100,
-                color: active ? BRAND.white : BRAND.gray500,
-                fontSize: 13, fontWeight: 600, fontFamily: BRAND.font,
-                cursor: "pointer", transition: "all 0.25s ease",
-                whiteSpace: "nowrap",
-              }}>
-                {active ? `vs. ${opt.label}` : opt.label}
-              </button>
-            );
-          })}
-        </div>
-
-        {/* Product summary */}
-        <div style={{
-          padding: "14px 16px", marginBottom: 24, borderRadius: BRAND.radius.md,
-          background: `${comp.color}06`, border: `1px solid ${comp.color}12`,
-          opacity: visible ? 1 : 0,
-          transition: "opacity 0.25s ease",
-        }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
-            <div style={{ width: 8, height: 8, borderRadius: 2, background: comp.color }} />
-            <span style={{ fontSize: 12, fontWeight: 700, color: comp.color, letterSpacing: "0.03em" }}>
-              WHAT IS A {comp.label.toUpperCase()}?
-            </span>
+        {/* Toggle + Product summary — connected tab-panel */}
+        <div style={{ marginBottom: 24 }}>
+          {/* Pill row */}
+          <div style={{
+            display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 0,
+            position: "relative", zIndex: 1,
+          }}>
+            {toggleOptions.map((opt) => {
+              const active = comparing === opt.key;
+              return (
+                <div key={opt.key} style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                  <button onClick={() => switchTo(opt.key)} style={{
+                    padding: "9px 16px", borderRadius: active ? "20px 20px 4px 4px" : 20, border: "none",
+                    background: active ? BRAND.blue700 : BRAND.gray100,
+                    color: active ? BRAND.white : BRAND.gray500,
+                    fontSize: 13, fontWeight: 600, fontFamily: BRAND.font,
+                    cursor: "pointer", transition: "all 0.25s ease",
+                    whiteSpace: "nowrap",
+                  }}>
+                    {active ? `vs. ${opt.label}` : opt.label}
+                  </button>
+                  {/* Caret connecting pill to panel */}
+                  {active && (
+                    <div style={{
+                      width: 0, height: 0,
+                      borderLeft: "8px solid transparent",
+                      borderRight: "8px solid transparent",
+                      borderTop: `8px solid ${BRAND.blue700}`,
+                      marginTop: -1,
+                    }} />
+                  )}
+                </div>
+              );
+            })}
           </div>
-          <div style={{ fontSize: 13, color: BRAND.gray600, lineHeight: 1.55 }}>
-            {comp.summary}
+
+          {/* Description panel */}
+          <div style={{
+            padding: "16px 18px", borderRadius: BRAND.radius.md,
+            background: BRAND.white,
+            border: `1.5px solid ${BRAND.border}`,
+            borderTop: `3px solid ${comp.color}`,
+            opacity: visible ? 1 : 0,
+            transition: "opacity 0.25s ease",
+          }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
+              <div style={{ width: 8, height: 8, borderRadius: 2, background: comp.color }} />
+              <span style={{ fontSize: 12, fontWeight: 700, color: comp.color, letterSpacing: "0.03em" }}>
+                WHAT IS A {comp.label.toUpperCase()}?
+              </span>
+            </div>
+            <div style={{ fontSize: 13, color: BRAND.gray600, lineHeight: 1.55 }}>
+              {comp.summary}
+            </div>
           </div>
         </div>
 

@@ -101,6 +101,58 @@ const COMPARISONS = {
       text: "Many homeowners default to a HELOC because it's familiar. But if monthly payments matter to you — or you've locked in a low mortgage rate and don't want to add financial strain — an HEI gives you cash without touching your budget.",
     },
   },
+  heloan: {
+    label: "Home Equity Loan",
+    color: "#30167E",
+    summaryLabel: "HOW A HOME EQUITY LOAN WORKS",
+    summary: "A home equity loan gives you a fixed lump sum at a fixed interest rate, repaid in equal monthly installments — typically over 5 to 30 years. Your home is used as collateral.",
+    rows: [
+      {
+        feature: "Monthly payments",
+        hei: { text: "No monthly payments for up to 10 years — you settle on your timeline", verdict: "win" },
+        other: { text: "Fixed monthly payments begin immediately and continue for the full loan term", verdict: "lose" },
+      },
+      {
+        feature: "Your mortgage rate",
+        hei: { text: "Stays exactly as-is — your existing mortgage doesn't change", verdict: "neutral" },
+        other: { text: "Mortgage stays in place — the home equity loan is a second lien on top", verdict: "neutral" },
+      },
+      {
+        feature: "Impact on monthly budget",
+        hei: { text: "Zero — your cash flow stays the same", verdict: "win" },
+        other: { text: "Adds a new fixed monthly bill on top of your existing mortgage", verdict: "lose" },
+      },
+      {
+        feature: "Rate structure",
+        hei: { text: "Cost is tied to a share of your home's future value — not a monthly interest rate", verdict: "neutral" },
+        other: { text: "Fixed interest rate for the life of the loan — predictable but starts on day one", verdict: "neutral" },
+      },
+      {
+        feature: "How you settle",
+        hei: { text: "Sell, refinance, or pay from savings — anytime within 10 years", verdict: "win" },
+        other: { text: "Monthly payments for 5–30 years — early payoff may include prepayment penalties", verdict: "lose" },
+      },
+      {
+        feature: "Qualification approach",
+        hei: { text: "Primarily based on your home's equity — no income or debt-to-income requirements", verdict: "win" },
+        other: { text: "Credit score, income verification, and debt-to-income requirements", verdict: "neutral" },
+      },
+      {
+        feature: "Impact on credit and DTI",
+        hei: { text: "No impact on your credit score or debt-to-income ratio during the investment term", verdict: "win" },
+        other: { text: "Counts as installment debt — increases your DTI and appears on your credit report", verdict: "lose" },
+      },
+      {
+        feature: "Access to funds",
+        hei: { text: "Lump sum — use however you choose", verdict: "neutral" },
+        other: { text: "Lump sum — use however you choose", verdict: "neutral" },
+      },
+    ],
+    bottomLine: {
+      hook: "Considering a home equity loan?",
+      text: "A home equity loan gives you predictable payments at a fixed rate — but those payments start immediately and last for years. An HEI gives you the same lump sum access with no monthly payments, no interest rate, and the flexibility to settle on your own timeline.",
+    },
+  },
   refi: {
     label: "Cash-out Refi",
     color: "#6D4BD4",
@@ -411,6 +463,14 @@ export default function ComparisonTool() {
   const [comparing, setComparing] = useState("heloc");
   const [visible, setVisible] = useState(true);
   const [loaded, setLoaded] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 640);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   useEffect(() => {
     const t = setTimeout(() => setLoaded(true), 100);
@@ -430,6 +490,7 @@ export default function ComparisonTool() {
 
   const toggleOptions = [
     { key: "heloc", label: "HELOC", color: "#19A274" },
+    { key: "heloan", label: "Home Equity Loan", color: "#30167E" },
     { key: "refi", label: "Cash-out Refi", color: "#6D4BD4" },
     { key: "reverse", label: "Reverse Mortgage", color: "#249995" },
     { key: "personal", label: "Personal Loan", color: "#2A87A8" },
@@ -445,7 +506,7 @@ export default function ComparisonTool() {
         background: BRAND.white, padding: "40px 24px 32px",
         borderBottom: `1px solid ${BRAND.border}`,
       }}>
-        <div style={{ maxWidth: 680, margin: "0 auto" }}>
+        <div style={{ maxWidth: 800, margin: "0 auto" }}>
           <div style={{
             display: "inline-flex", alignItems: "center", gap: 8, marginBottom: 24,
           }}>
@@ -481,43 +542,85 @@ export default function ComparisonTool() {
         </div>
       </div>
 
-      <div style={{ maxWidth: 680, margin: "0 auto", padding: "28px 16px 48px" }}>
+      <div style={{ maxWidth: 800, margin: "0 auto", padding: "28px 16px 48px" }}>
 
         {/* Toggle + Product summary — connected tab-panel */}
         <div style={{ marginBottom: 24 }}>
-          {/* Pill row */}
-          <div style={{
-            display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 0,
-            position: "relative", zIndex: 1,
-          }}>
-            {toggleOptions.map((opt) => {
-              const active = comparing === opt.key;
-              return (
-                <div key={opt.key} style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                  <button onClick={() => switchTo(opt.key)} style={{
-                    padding: "9px 16px", borderRadius: active ? "20px 20px 4px 4px" : 20, border: "none",
-                    background: active ? BRAND.blue700 : BRAND.gray100,
-                    color: active ? BRAND.white : BRAND.gray500,
-                    fontSize: 13, fontWeight: 600, fontFamily: BRAND.font,
-                    cursor: "pointer", transition: "all 0.25s ease",
-                    whiteSpace: "nowrap",
-                  }}>
-                    {active ? `vs. ${opt.label}` : opt.label}
-                  </button>
-                  {/* Caret connecting pill to panel */}
-                  {active && (
-                    <div style={{
-                      width: 0, height: 0,
-                      borderLeft: "8px solid transparent",
-                      borderRight: "8px solid transparent",
-                      borderTop: `8px solid ${BRAND.blue700}`,
-                      marginTop: -1,
-                    }} />
-                  )}
+
+          {/* Desktop: pill row */}
+          {!isMobile && (
+            <div style={{
+              display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 0,
+              position: "relative", zIndex: 1,
+            }}>
+              {toggleOptions.map((opt) => {
+                const active = comparing === opt.key;
+                return (
+                  <div key={opt.key} style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                    <button onClick={() => switchTo(opt.key)} style={{
+                      padding: "9px 16px", borderRadius: active ? "20px 20px 4px 4px" : 20, border: "none",
+                      background: active ? BRAND.blue700 : BRAND.gray100,
+                      color: active ? BRAND.white : BRAND.gray500,
+                      fontSize: 13, fontWeight: 600, fontFamily: BRAND.font,
+                      cursor: "pointer", transition: "all 0.25s ease",
+                      whiteSpace: "nowrap",
+                    }}>
+                      {active ? `vs. ${opt.label}` : opt.label}
+                    </button>
+                    {active && (
+                      <div style={{
+                        width: 0, height: 0,
+                        borderLeft: "8px solid transparent",
+                        borderRight: "8px solid transparent",
+                        borderTop: `8px solid ${BRAND.blue700}`,
+                        marginTop: -1,
+                      }} />
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          )}
+
+          {/* Mobile: dropdown selector */}
+          {isMobile && (
+            <div style={{ marginBottom: 4, position: "relative" }}>
+              <div style={{
+                fontSize: 12, fontWeight: 600, color: BRAND.gray500, letterSpacing: "0.04em",
+                textTransform: "uppercase", marginBottom: 8,
+              }}>
+                Compare HEI vs.
+              </div>
+              <div style={{ position: "relative" }}>
+                <select
+                  value={comparing}
+                  onChange={(e) => switchTo(e.target.value)}
+                  style={{
+                    width: "100%", padding: "14px 44px 14px 16px",
+                    borderRadius: BRAND.radius.md,
+                    border: `2px solid ${BRAND.blue700}`,
+                    background: BRAND.white, color: BRAND.blue700,
+                    fontSize: 15, fontWeight: 700, fontFamily: BRAND.font,
+                    cursor: "pointer", appearance: "none",
+                    WebkitAppearance: "none", MozAppearance: "none",
+                  }}
+                >
+                  {toggleOptions.map((opt) => (
+                    <option key={opt.key} value={opt.key}>{opt.label}</option>
+                  ))}
+                </select>
+                {/* Chevron */}
+                <div style={{
+                  position: "absolute", right: 16, top: "50%", transform: "translateY(-50%)",
+                  pointerEvents: "none",
+                }}>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={BRAND.blue700} strokeWidth="2.5" strokeLinecap="round">
+                    <polyline points="6 9 12 15 18 9" />
+                  </svg>
                 </div>
-              );
-            })}
-          </div>
+              </div>
+            </div>
+          )}
 
           {/* Description panel */}
           <div style={{

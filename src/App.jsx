@@ -24,9 +24,9 @@ const BRAND = {
   red:       "#DC4545",
   blue:      "#4A7CCC",
   orange:    "#D4764E",
-  purple:    "#7C5CBA",
-  teal:      "#2B93A5",
-  rose:      "#C74B7A",
+  purple:    "#6D4BD4",
+  teal:      "#2A87A8",
+  rose:      "#30167E",
   font:      "'DM Sans', sans-serif",
   radius:    { sm: 8, md: 12, lg: 16, xl: 20 },
 };
@@ -50,7 +50,7 @@ const BRAND = {
 const COMPARISONS = {
   heloc: {
     label: "HELOC",
-    color: BRAND.blue,
+    color: "#19A274",
     summary: "A HELOC gives you a revolving credit line against your home. You draw what you need and pay interest on what you borrow — every month, from day one.",
     rows: [
       {
@@ -102,7 +102,7 @@ const COMPARISONS = {
   },
   refi: {
     label: "Cash-out Refi",
-    color: BRAND.orange,
+    color: "#6D4BD4",
     summary: "A cash-out refinance replaces your entire mortgage with a new, larger one. You receive the difference as cash — but take on a new rate and 30 years of payments.",
     rows: [
       {
@@ -154,7 +154,7 @@ const COMPARISONS = {
   },
   reverse: {
     label: "Reverse Mortgage",
-    color: BRAND.purple,
+    color: "#249995",
     summary: "A reverse mortgage converts home equity into cash for homeowners 62+. No monthly payments, but the loan balance grows over time and is repaid when you sell or pass away.",
     rows: [
       {
@@ -211,7 +211,7 @@ const COMPARISONS = {
   },
   personal: {
     label: "Personal Loan",
-    color: BRAND.teal,
+    color: "#2A87A8",
     summary: "A personal loan gives you a fixed lump sum with a fixed interest rate and fixed monthly payments — typically over 2 to 7 years. It's unsecured, meaning your home isn't used as collateral.",
     rows: [
       {
@@ -263,7 +263,7 @@ const COMPARISONS = {
   },
   credit: {
     label: "Credit Card",
-    color: BRAND.rose,
+    color: "#0C2E7D",
     summary: "Credit cards offer a revolving line of credit for everyday purchases and cash advances. Convenient for small amounts, but high interest rates make them expensive for large or long-term borrowing.",
     rows: [
       {
@@ -380,8 +380,7 @@ function CompRow({ feature, hei, other, otherColor, index, visible }) {
         }}>
           <VerdictIcon verdict={hei.verdict} />
           <div style={{
-            fontSize: 13, color: hei.verdict === "win" ? BRAND.dark : BRAND.gray600,
-            lineHeight: 1.5, fontWeight: hei.verdict === "win" ? 600 : 400,
+            fontSize: 13, color: BRAND.gray600, lineHeight: 1.5,
           }}>
             {hei.text}
           </div>
@@ -393,8 +392,7 @@ function CompRow({ feature, hei, other, otherColor, index, visible }) {
         }}>
           <VerdictIcon verdict={other.verdict} />
           <div style={{
-            fontSize: 13, color: other.verdict === "win" ? BRAND.dark : BRAND.gray600,
-            lineHeight: 1.5, fontWeight: other.verdict === "win" ? 600 : 400,
+            fontSize: 13, color: BRAND.gray600, lineHeight: 1.5,
           }}>
             {other.text}
           </div>
@@ -426,11 +424,11 @@ export default function ComparisonTool() {
   const comp = COMPARISONS[comparing];
 
   const toggleOptions = [
-    { key: "heloc", label: "HELOC", color: BRAND.blue },
-    { key: "refi", label: "Cash-out Refi", color: BRAND.orange },
-    { key: "reverse", label: "Reverse Mortgage", color: BRAND.purple },
-    { key: "personal", label: "Personal Loan", color: BRAND.teal },
-    { key: "credit", label: "Credit Card", color: BRAND.rose },
+    { key: "heloc", label: "HELOC", color: "#19A274" },
+    { key: "refi", label: "Cash-out Refi", color: "#6D4BD4" },
+    { key: "reverse", label: "Reverse Mortgage", color: "#249995" },
+    { key: "personal", label: "Personal Loan", color: "#2A87A8" },
+    { key: "credit", label: "Credit Card", color: "#0C2E7D" },
   ];
 
   return (
@@ -525,7 +523,7 @@ export default function ComparisonTool() {
           borderBottom: `2px solid ${BRAND.border}`,
         }}>
           <div style={{ flex: 1, display: "flex", alignItems: "center", gap: 8, padding: "0 12px" }}>
-            <div style={{ width: 12, height: 12, borderRadius: 3, background: BRAND.green }} />
+            <div style={{ width: 12, height: 12, borderRadius: 3, background: BRAND.blue100 }} />
             <span style={{ fontSize: 14, fontWeight: 800, color: BRAND.dark }}>Home Equity Investment</span>
           </div>
           <div style={{ flex: 1, display: "flex", alignItems: "center", gap: 8, padding: "0 12px" }}>
@@ -558,7 +556,7 @@ export default function ComparisonTool() {
           <div style={{ position: "absolute", bottom: -20, left: "20%", width: 80, height: 80, borderRadius: "50%", background: "rgba(255,255,255,0.04)" }} />
           <div style={{ position: "relative", zIndex: 1 }}>
             <div style={{
-              fontSize: 11, fontWeight: 700, color: BRAND.blue100,
+              fontSize: 11, fontWeight: 700, color: BRAND.white,
               letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: 10,
             }}>
               {comp.bottomLine.hook}

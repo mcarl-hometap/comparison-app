@@ -562,14 +562,20 @@ export default function ComparisonTool() {
       <div style={{ maxWidth: 800, margin: "0 auto", padding: "28px 16px 48px" }}>
 
         {/* Toggle + Product summary — connected tab-panel */}
-        <div style={{ marginBottom: 24 }}>
+        <div style={{ marginBottom: 40 }}>
 
-          {/* Desktop: pill row */}
+          {/* Desktop: label + pill row */}
           {!isMobile && (
-            <div style={{
-              display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 0,
-              position: "relative", zIndex: 1,
-            }}>
+            <div style={{ marginBottom: 0, position: "relative", zIndex: 1 }}>
+              <div style={{
+                fontSize: 14, fontWeight: 700, color: BRAND.blue700,
+                fontFamily: BRAND.font, marginBottom: 20,
+              }}>
+                Home Equity Investment vs.
+              </div>
+              <div style={{
+                display: "flex", gap: 6,
+              }}>
               {toggleOptions.map((opt) => {
                 const active = comparing === opt.key;
                 return (
@@ -582,7 +588,7 @@ export default function ComparisonTool() {
                       cursor: "pointer", transition: "all 0.25s ease",
                       whiteSpace: "nowrap",
                     }}>
-                      {active ? `vs. ${opt.label}` : opt.label}
+                      {opt.label}
                     </button>
                     {active && (
                       <div style={{
@@ -597,16 +603,17 @@ export default function ComparisonTool() {
                 );
               })}
             </div>
+            </div>
           )}
 
           {/* Mobile: dropdown selector */}
           {isMobile && (
             <div style={{ marginBottom: 4, position: "relative" }}>
               <div style={{
-                fontSize: 12, fontWeight: 600, color: BRAND.gray500, letterSpacing: "0.04em",
-                textTransform: "uppercase", marginBottom: 8,
+                fontSize: 14, fontWeight: 700, color: BRAND.blue700,
+                marginBottom: 8, fontFamily: BRAND.font,
               }}>
-                Compare HEI vs.
+                Home Equity Investment vs.
               </div>
               <div style={{ position: "relative" }}>
                 <select

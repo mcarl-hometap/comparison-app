@@ -520,7 +520,7 @@ export default function ComparisonTool() {
 
       {/* Header */}
       <div style={{
-        background: BRAND.white, padding: "40px 24px 32px",
+        background: "#F4F7FF", padding: "40px 24px 32px",
         borderBottom: `1px solid ${BRAND.border}`,
       }}>
         <div style={{ maxWidth: 800, margin: "0 auto" }}>
@@ -550,7 +550,7 @@ export default function ComparisonTool() {
             Find the right financing fit for you.
           </h1>
           <p style={{
-            fontSize: 16, color: BRAND.gray600, margin: 0, lineHeight: 1.6, maxWidth: 520,
+            fontSize: 18, color: BRAND.gray600, margin: 0, lineHeight: 1.6, maxWidth: 520,
             opacity: loaded ? 1 : 0, transform: loaded ? "translateY(0)" : "translateY(10px)",
             transition: "all 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.08s",
           }}>

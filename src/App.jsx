@@ -531,11 +531,12 @@ export default function ComparisonTool() {
                   <div key={opt.key} style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
                     <button onClick={() => switchTo(opt.key)} style={{
                       padding: "9px 16px", borderRadius: active ? "20px 20px 4px 4px" : 20, border: "none",
-                      background: active ? BRAND.blue700 : BRAND.gray100,
+                      background: active ? BRAND.blue700 : BRAND.white,
                       color: active ? BRAND.white : BRAND.gray500,
                       fontSize: 13, fontWeight: 600, fontFamily: BRAND.font,
                       cursor: "pointer", transition: "all 0.25s ease",
                       whiteSpace: "nowrap",
+                      border: active ? "none" : `1px solid ${BRAND.border}`,
                     }}>
                       {opt.label}
                     </button>

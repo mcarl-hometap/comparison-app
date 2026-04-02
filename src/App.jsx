@@ -374,44 +374,6 @@ const COMPARISONS = {
 
 /* ─── Components ─── */
 
-function VerdictIcon({ verdict, size = 18 }) {
-  const G = BRAND.green;
-  const R = BRAND.red;
-  const M = BRAND.gray500;
-  if (verdict === "win") {
-    return (
-      <div style={{
-        width: size + 4, height: size + 4, borderRadius: "50%", background: `${G}15`,
-        display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
-      }}>
-        <svg width={size - 2} height={size - 2} viewBox="0 0 24 24" fill="none" stroke={G} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-          <polyline points="20 6 9 17 4 12" />
-        </svg>
-      </div>
-    );
-  }
-  if (verdict === "lose") {
-    return (
-      <div style={{
-        width: size + 4, height: size + 4, borderRadius: "50%", background: `${R}10`,
-        display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
-      }}>
-        <svg width={size - 4} height={size - 4} viewBox="0 0 24 24" fill="none" stroke={R} strokeWidth="3" strokeLinecap="round">
-          <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
-        </svg>
-      </div>
-    );
-  }
-  return (
-    <div style={{
-      width: size + 4, height: size + 4, borderRadius: "50%", background: `${M}12`,
-      display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
-    }}>
-      <div style={{ width: size - 6, height: 3, borderRadius: 2, background: `${M}60` }} />
-    </div>
-  );
-}
-
 function CompRow({ feature, hei, other, otherColor, index, visible }) {
   const delay = 0.04 * index;
   return (
@@ -422,7 +384,7 @@ function CompRow({ feature, hei, other, otherColor, index, visible }) {
     }}>
       {/* Feature label */}
       <div style={{
-        fontSize: 13, fontWeight: 700, color: BRAND.dark, padding: "16px 0 10px",
+        fontSize: 13, fontWeight: 700, color: BRAND.dark, padding: "16px 0 8px",
         borderTop: index > 0 ? `1px solid ${BRAND.border}` : "none",
         fontFamily: BRAND.font,
       }}>
@@ -431,26 +393,14 @@ function CompRow({ feature, hei, other, otherColor, index, visible }) {
 
       {/* Two-column comparison */}
       <div style={{ display: "flex", gap: 10, paddingBottom: 4 }}>
-        <div style={{
-          flex: 1, display: "flex", gap: 10, alignItems: "flex-start",
-          borderRadius: BRAND.radius.md, padding: "10px 12px",
-        }}>
-          <VerdictIcon verdict={hei.verdict} />
-          <div style={{
-            fontSize: 13, color: BRAND.gray600, lineHeight: 1.5,
-          }}>
+        <div style={{ flex: 1, padding: "4px 0" }}>
+          <div style={{ fontSize: 13, color: BRAND.gray600, lineHeight: 1.5 }}>
             {hei.text}
           </div>
         </div>
 
-        <div style={{
-          flex: 1, display: "flex", gap: 10, alignItems: "flex-start",
-          borderRadius: BRAND.radius.md, padding: "10px 12px",
-        }}>
-          <VerdictIcon verdict={other.verdict} />
-          <div style={{
-            fontSize: 13, color: BRAND.gray600, lineHeight: 1.5,
-          }}>
+        <div style={{ flex: 1, padding: "4px 0" }}>
+          <div style={{ fontSize: 13, color: BRAND.gray600, lineHeight: 1.5 }}>
             {other.text}
           </div>
         </div>
@@ -515,13 +465,12 @@ export default function ComparisonTool() {
   ];
 
   return (
-    <div style={{ fontFamily: BRAND.font, background: BRAND.white, minHeight: "100vh" }}>
+    <div style={{ fontFamily: BRAND.font, background: "#F4F7FF", minHeight: "100vh" }}>
       <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
       {/* Header */}
       <div style={{
-        background: "#F4F7FF", padding: "40px 24px 32px",
-        borderBottom: `1px solid ${BRAND.border}`,
+        background: BRAND.blue700, padding: "40px 24px 32px",
       }}>
         <div style={{ maxWidth: 800, margin: "0 auto" }}>
           <div style={{
@@ -529,7 +478,7 @@ export default function ComparisonTool() {
           }}>
             <div style={{
               width: 32, height: 32, borderRadius: 10,
-              background: BRAND.blue700,
+              background: "rgba(255,255,255,0.15)",
               display: "flex", alignItems: "center", justifyContent: "center",
             }}>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={BRAND.white} strokeWidth="2.5" strokeLinecap="round">
@@ -537,20 +486,20 @@ export default function ComparisonTool() {
                 <polyline points="9 22 9 12 15 12 15 22" />
               </svg>
             </div>
-            <span style={{ fontSize: 13, fontWeight: 700, color: BRAND.gray500, letterSpacing: "0.06em", textTransform: "uppercase" }}>
+            <span style={{ fontSize: 13, fontWeight: 700, color: "rgba(255,255,255,0.7)", letterSpacing: "0.06em", textTransform: "uppercase" }}>
               Compare Options
             </span>
           </div>
 
           <h1 style={{
-            fontSize: 32, fontWeight: 800, color: BRAND.blue700, lineHeight: 1.15, margin: "0 0 10px",
+            fontSize: 32, fontWeight: 800, color: BRAND.white, lineHeight: 1.15, margin: "0 0 10px",
             opacity: loaded ? 1 : 0, transform: loaded ? "translateY(0)" : "translateY(10px)",
             transition: "all 0.5s cubic-bezier(0.22, 1, 0.36, 1)",
           }}>
             Find the right financing fit for you.
           </h1>
           <p style={{
-            fontSize: 18, color: BRAND.gray600, margin: 0, lineHeight: 1.6, maxWidth: 520,
+            fontSize: 18, color: "rgba(255,255,255,0.7)", margin: 0, lineHeight: 1.6, maxWidth: 520,
             opacity: loaded ? 1 : 0, transform: loaded ? "translateY(0)" : "translateY(10px)",
             transition: "all 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.08s",
           }}>
@@ -568,7 +517,7 @@ export default function ComparisonTool() {
           {!isMobile && (
             <div style={{ marginBottom: 0, position: "relative", zIndex: 1 }}>
               <div style={{
-                fontSize: 14, fontWeight: 700, color: BRAND.blue700,
+                fontSize: 18, fontWeight: 800, color: BRAND.blue700,
                 fontFamily: BRAND.font, marginBottom: 20,
               }}>
                 Home Equity Investment vs.
@@ -610,7 +559,7 @@ export default function ComparisonTool() {
           {isMobile && (
             <div style={{ marginBottom: 4, position: "relative" }}>
               <div style={{
-                fontSize: 14, fontWeight: 700, color: BRAND.blue700,
+                fontSize: 18, fontWeight: 800, color: BRAND.blue700,
                 marginBottom: 8, fontFamily: BRAND.font,
               }}>
                 Home Equity Investment vs.
@@ -648,77 +597,80 @@ export default function ComparisonTool() {
 
           {/* Description panel */}
           <div style={{
-            padding: "16px 18px", borderRadius: BRAND.radius.md,
+            padding: "20px 22px", borderRadius: BRAND.radius.md,
             background: BRAND.white,
             border: `1.5px solid ${BRAND.border}`,
             borderTop: `3px solid ${comp.color}`,
             opacity: visible ? 1 : 0,
             transition: "opacity 0.25s ease",
           }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
-              <div style={{ width: 8, height: 8, borderRadius: 2, background: comp.color }} />
-              <span style={{ fontSize: 12, fontWeight: 700, color: comp.color, letterSpacing: "0.03em" }}>
-                {comp.summaryLabel}
-              </span>
+            <div style={{
+              fontSize: 12, fontWeight: 700, color: comp.color,
+              letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: 8,
+            }}>
+              {comp.summaryLabel}
             </div>
             <div style={{ fontSize: 13, color: BRAND.gray600, lineHeight: 1.55 }}>
               {comp.summary}
             </div>
-          </div>
-        </div>
-
-        {/* Column headers */}
-        <div style={{
-          display: "flex", gap: 10, marginBottom: 4, padding: "0 0 12px",
-          borderBottom: `2px solid ${BRAND.border}`,
-        }}>
-          <div style={{ flex: 1, display: "flex", alignItems: "center", gap: 8, padding: "0 12px" }}>
-            <div style={{ width: 12, height: 12, borderRadius: 3, background: BRAND.blue100 }} />
-            <span style={{ fontSize: 14, fontWeight: 800, color: BRAND.dark }}>Home Equity Investment</span>
-          </div>
-          <div style={{ flex: 1, display: "flex", alignItems: "center", gap: 8, padding: "0 12px" }}>
-            <div style={{ width: 12, height: 12, borderRadius: 3, background: comp.color }} />
-            <span style={{ fontSize: 14, fontWeight: 800, color: BRAND.dark }}>{comp.label}</span>
-          </div>
-        </div>
-
-        {/* Comparison rows */}
-        <div style={{ marginBottom: 8 }}>
-          {comp.rows.map((row, i) => (
-            <CompRow
-              key={`${comparing}-${i}`}
-              feature={row.feature}
-              hei={row.hei}
-              other={row.other}
-              otherColor={comp.color}
-              index={i}
-              visible={visible}
-            />
-          ))}
-        </div>
-
-        {/* Bottom line — contextual insight per product */}
-        <div style={{
-          background: BRAND.blue700, borderRadius: BRAND.radius.xl, padding: "28px 28px",
-          marginTop: 24, marginBottom: 28, position: "relative", overflow: "hidden",
-        }}>
-          <div style={{ position: "absolute", top: -40, right: -40, width: 140, height: 140, borderRadius: "50%", background: "rgba(255,255,255,0.06)" }} />
-          <div style={{ position: "absolute", bottom: -20, left: "20%", width: 80, height: 80, borderRadius: "50%", background: "rgba(255,255,255,0.04)" }} />
-          <div style={{ position: "relative", zIndex: 1 }}>
-            <div style={{
-              fontSize: 11, fontWeight: 700, color: BRAND.white,
-              letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: 10,
-            }}>
-              {comp.bottomLine.hook}
-            </div>
-            <div style={{ fontSize: 15, color: "rgba(255,255,255,0.78)", lineHeight: 1.65 }}>
+            <div style={{ fontSize: 13, color: BRAND.gray600, lineHeight: 1.55, marginTop: 14, paddingTop: 14, borderTop: `1px solid ${BRAND.border}` }}>
+              <div style={{
+                fontSize: 12, fontWeight: 700, color: comp.color,
+                letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: 8,
+              }}>
+                {comp.bottomLine.hook}
+              </div>
               {comp.bottomLine.text}
             </div>
           </div>
         </div>
 
+        {/* Comparison table card */}
+        <div style={{
+          background: BRAND.white, borderRadius: BRAND.radius.lg, padding: "28px 24px",
+          border: `1px solid ${BRAND.border}`, boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
+        }}>
+          {/* Table title */}
+          <div style={{
+            fontSize: 18, fontWeight: 800, color: BRAND.dark, marginBottom: 20,
+            fontFamily: BRAND.font,
+          }}>
+            How Home Equity Investments compare
+          </div>
+
+          {/* Column headers */}
+          <div style={{
+            display: "flex", gap: 10, marginBottom: 4, padding: "0 0 12px",
+            borderBottom: `2px solid ${BRAND.border}`,
+          }}>
+            <div style={{ flex: 1, display: "flex", alignItems: "center", gap: 8 }}>
+              <div style={{ width: 12, height: 12, borderRadius: 3, background: BRAND.blue100 }} />
+              <span style={{ fontSize: 14, fontWeight: 800, color: BRAND.dark }}>Home Equity Investment</span>
+            </div>
+            <div style={{ flex: 1, display: "flex", alignItems: "center", gap: 8 }}>
+              <div style={{ width: 12, height: 12, borderRadius: 3, background: comp.color }} />
+              <span style={{ fontSize: 14, fontWeight: 800, color: BRAND.dark }}>{comp.label}</span>
+            </div>
+          </div>
+
+          {/* Comparison rows */}
+          <div style={{ marginBottom: 0 }}>
+            {comp.rows.map((row, i) => (
+              <CompRow
+                key={`${comparing}-${i}`}
+                feature={row.feature}
+                hei={row.hei}
+                other={row.other}
+                otherColor={comp.color}
+                index={i}
+                visible={visible}
+              />
+            ))}
+          </div>
+        </div>
+
         {/* CTA */}
-        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", marginTop: 32 }}>
           <button style={{
             width: 300, background: BRAND.blue100, color: BRAND.white, border: "none",
             borderRadius: BRAND.radius.md, padding: "16px 0", fontSize: 16,
